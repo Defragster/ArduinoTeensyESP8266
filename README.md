@@ -7,6 +7,7 @@ https://github.com/esp8266/arduino
 https://github.com/esp8266/Arduino/blob/master/doc/ota_updates/ota_updates.md#arduinoota
 
 Connected and powered by a PJRC Teensy 3.2.
+
 ESP units are a 12E and a onehorse unit from Tindie : https://www.tindie.com/products/onehorse/esp8266-add-on-for-teensy-32/
 
 
