@@ -1,0 +1,113 @@
+﻿<html>
+<head>
+<LINK REL=STYLESHEET   HREF="cssfile.css" TYPE="text/css">
+<STYLE TYPE="text/css">
+<!--
+A.1 {text-decoration: none; color: "#33ff33"; font-size: 30px} 
+A.2 {text-decoration: none; color: "#3333ff"; font-size: 30px} 
+A.3 {text-decoration: none; color: "#ff3333"; font-size: 30px} 
+A.4 {text-decoration: none; color: "#33ffff"; font-size: 30px} 
+
+TD {text-align: "center"}
+
+Table {background: "#99aaaa"; margin-top: 50px }  
+-->
+</STYLE>
+
+</head>
+<body>
+
+ESP IP: <input type="text" name="espip" value="192.168.1.100">   
+
+<button onclick="myFunction()">Load IP</button>
+<button onclick="autoip()">AUTO</button>
+
+<b id="time1"> </b> 
+<b id="date1"> </b>
+<br> <br> <input type="text" name="here2" value="">
+
+<script>
+
+
+function getCalendarDate()
+{
+   var months = new Array(13);
+   months[0]  = "January";
+   months[1]  = "February";
+   months[2]  = "March";
+   months[3]  = "April";
+   months[4]  = "May";
+   months[5]  = "June";
+   months[6]  = "July";
+   months[7]  = "August";
+   months[8]  = "September";
+   months[9]  = "October";
+   months[10] = "November";
+   months[11] = "December";
+   var now         = new Date();
+   var monthnumber = now.getMonth();
+   var monthname   = months[monthnumber];
+   var monthday    = now.getDate();
+   var year        = now.getYear();
+   if(year < 2000) { year = year + 1900; }
+   var dateString = monthname +
+                    ' ' +
+                    monthday +
+                    ', ' +
+                    year;
+   return dateString;
+} // function getCalendarDate()
+
+function getClockTime()
+{
+   var now    = new Date();
+   var hour   = now.getHours();
+   var minute = now.getMinutes();
+   var second = now.getSeconds();
+   var ap = "AM";
+   if (hour   > 11) { ap = "PM";             }
+   if (hour   > 12) { hour = hour - 12;      }
+   if (hour   == 0) { hour = 12;             }
+   if (hour   < 10) { hour   = "0" + hour;   }
+   if (minute < 10) { minute = "0" + minute; }
+   if (second < 10) { second = "0" + second; }
+   var timeString = hour +
+                    ':' +
+                    minute +
+                    ':' +
+                    second +
+                    " " +
+                    ap;
+   return timeString;
+} // function getClockTime()
+
+
+var eip = "";
+var ideip = -1; 
+document.getElementById("espip").maxLength = "70";
+
+function myFunction() {
+	if ( -1 != ideip )  {            clearInterval(ideip);    ideip = -1;     }
+    eip = "http://" + espip.value;
+    loadeip();
+//	window.parent.frames['right_fr'].location = eip;
+
+}
+function loadeip() {
+	var calendarDate = getCalendarDate();
+	var clockTime = getClockTime();
+
+    eip = "http://" + espip.value;
+	window.parent.frames['right_fr'].location = eip;
+	document.getElementById("time1").innerHTML = clockTime;
+	document.getElementById("date1").innerHTML = calendarDate;
+}
+
+function autoip() {
+	if ( -1 != ideip )  {            clearInterval(ideip);    ideip = -1;     }
+	loadeip();
+	ideip = setInterval(loadeip, 2500);
+}
+</script>
+</body>
+</html>
