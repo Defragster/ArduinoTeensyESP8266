@@ -7,6 +7,7 @@ https://github.com/esp8266/arduino
 https://github.com/esp8266/Arduino/blob/master/doc/ota_updates/ota_updates.md#arduinoota
 
 This link to working with SPIFFS file system on ESP: http://esp8266.github.io/Arduino/versions/2.1.0-rc1/doc/filesystem.html
+ [ newer 0.2.0 might be working for OTA SPIFFS uipload: https://github.com/esp8266/arduino-esp8266fs-plugin/releases ]
 
 Connected and powered by a PJRC Teensy 3.2.
 
