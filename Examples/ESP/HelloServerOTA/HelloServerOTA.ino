@@ -5,22 +5,25 @@
 #include "userssid.h"
 ADC_MODE(ADC_VCC); // to use getVcc
 #include <ArduinoOTA.h>
+#include "FS.h"
+
 
 //const char* ssid = "SSID";
 //const char* password = "pwd";
 
 ESP8266WebServer server(80);
 
-char  szBuild[] = "OTA_1.0.1";
+char  szBuild[] = "OTA_FS_1.0.3";
 
-void SysInfo( void );   // update sysinfo Strinh
+void SysInfo( void );   // update sysinfo String
 void do_ttog ( void );  // toggle RGB
 void handleNotFound( void ); // Server page 404 > 200
 void setupOTA( void );
+void SeeSPIFFS(void);
 
 
 const int Gled = 12;
-const int Bled = 15;
+const int Bled = 14;  // 14 on ESP and 15 on Serial3
 const int Rled = 13;
 
 uint32_t G40cnt = 0;
@@ -151,6 +154,7 @@ void setup(void) {
   Serial.println(ESP.getSketchSize());
   Serial.print("Free size: ");
   Serial.println(ESP.getFreeSketchSpace());
+  SeeSPIFFS();
 }
 
 void loop(void) {
@@ -192,8 +196,8 @@ void SysInfo() {
   Serial.println( "str len web");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-  Serial.print("\n BldID:");
-  Serial.print(szBuild);
+  Serial.print(" BldID:");
+  Serial.println(szBuild);
 }
 
 
@@ -241,5 +245,40 @@ void setupOTA() {
   Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
+}
+
+void SeeSPIFFS() {
+  if ( SPIFFS.begin() ) {
+    Serial.println("SPIFFS TRUE");
+    File file = SPIFFS.open("/here.txt", "r");
+    if (file) {
+      Serial.println("file here.txt found!");
+      int ii = 0;
+      char cbuffer[100]="";
+      int jj = file.size();
+      int kk;
+      while ( ii < jj ) {
+        if ( (jj - ii) > 99 ) kk=99; else kk = jj - ii;
+        file.readBytes(cbuffer, kk);
+        cbuffer[kk]=0;
+        Serial.print(cbuffer);
+        ii+=kk;
+      }
+      file.close();
+      Serial.println("/n-------");
+    }
+    Serial.println("DIR /");
+    Dir dir = SPIFFS.openDir("/");
+    while (dir.next()) {
+      Serial.print(dir.fileName());
+      file = dir.openFile("r");
+      Serial.print(" Len=");
+      Serial.println(file.size());
+      file.close();
+    }
+  }
+  else if ( SPIFFS.format() ) {
+    Serial.print("SPIFFS FORMATTED");
+  }
 }
 
