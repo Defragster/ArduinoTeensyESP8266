@@ -7,7 +7,7 @@ https://github.com/esp8266/arduino
 https://github.com/esp8266/Arduino/blob/master/doc/ota_updates/ota_updates.md#arduinoota
 
 This link to working with SPIFFS file system on ESP: http://esp8266.github.io/Arduino/versions/2.1.0-rc1/doc/filesystem.html
- [ newer 0.2.0 might be working for OTA SPIFFS uipload: https://github.com/esp8266/arduino-esp8266fs-plugin/releases ]
+ [ newer 0.2.0 working for OTA SPIFFS upload: https://github.com/esp8266/arduino-esp8266fs-plugin/releases ]
 
 Connected and powered by a PJRC Teensy 3.2.
 
@@ -20,6 +20,7 @@ First "HelloServerOTA" example for ESP8266
 > The sketch cycles power to GPIO 12,13,15  where I stuck an RGB LED, it puts out serial data, presents web text.
 > Incorporates Arduino OTA Port based uploading
 > Use build for your ESP unit, I set mine to 1M ( 256K SPIFFS ) to allow OTA code to fit at 259K it is 33% code space
+> [pending] Bad code crashing into wdt (watchdog timer)? - added setup() pin read to skip user code except OTA after WiFii
 
 First AutoRefresh "FirstPage" Web Page set: start index.htm
 ---Sample auto update browser script to monitor ESP8266
