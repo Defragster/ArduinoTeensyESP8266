@@ -13,7 +13,10 @@ void setupOTA( void );
 //const char* password = "pwd";
 
 // GLOBAL ABUSE
-const int ESTOP_PIN = 4;  // If this pin HIGH in setup() then only OTA code runs
+char  szBuild[] = "OTA_FS_1.0.83"; // simple debug version string to verify new uploads
+
+const int ESTOP_TEENSY = 16;
+const int ESTOP_PIN = ESTOP_TEENSY; // 4;  // If this pin HIGH in setup() then only OTA code runs
 const int Bled = 12;
 const int Rled = 15;  // 14 on ESP and 15 on Serial3
 const int Gled = 13;
@@ -25,7 +28,6 @@ uint32_t ts1 = 0;
 String webString = "";   // String to display
 String sysString = "";   // String to display
 String FirstHeap = "";
-char  szBuild[] = "OTA_FS_1.0.7"; // simple debug version string to verify new uploads
 
 void SysInfo( void );   // update sysinfo String
 void ledTog( uint8_t ledCMD  );  // toggle RGB
@@ -95,18 +97,18 @@ void setup2(void) {
 
 void setup(void) {
   ts0 = millis();
+  ledTog( 255 );
+
+  webString.reserve(360); // OVER ALLOCATE these strings to try to prevent heap fragmentation as they grow
+  sysString.reserve(260);
+  FirstHeap.reserve(40);
+  // Serial.begin(74880);
+  Serial.begin(115200);
+  while (!Serial && (millis() <= 1000));
   if ( digitalRead( ESTOP_PIN ) ) {
     EStop = 1;
     Serial.setDebugOutput(true);  // OPTIONAL
   }
-  ledTog( 255 );
-
-  // Serial.begin(74880);
-  Serial.begin(115200);
-  webString.reserve(360);
-  sysString.reserve(260);
-  FirstHeap.reserve(40);
-  while (!Serial && (millis() <= 3000));
   if ( EStop  ) {
     Serial.println();
     Serial.print( ESTOP_PIN );
@@ -162,6 +164,9 @@ void loop(void) {
   if ( !EStop ) {
     ledTog( 0 );
     server.handleClient();
+    while (Serial.available()) {
+      Serial.write(Serial.read());
+    }
   }
   ArduinoOTA.handle();
 }
