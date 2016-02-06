@@ -5,6 +5,7 @@ Work in Progress: GOING WELL - multiple ESP units tested with OTA and now Serial
 https://github.com/esp8266/arduino
 
 https://github.com/esp8266/Arduino/blob/master/doc/ota_updates/ota_updates.md#arduinoota
+* NOTE: Arduino IDE 1.6.7 is the first release that provides support for ArduinoOTA library
 
 This link to working with SPIFFS file system on ESP: http://esp8266.github.io/Arduino/versions/2.1.0-rc1/doc/filesystem.html
  [ newer 0.2.0 working for OTA SPIFFS upload: https://github.com/esp8266/arduino-esp8266fs-plugin/releases ]
