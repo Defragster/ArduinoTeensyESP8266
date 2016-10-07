@@ -1,5 +1,9 @@
 FOUND THIS SERVER: https://github.com/nailbuster/myWebServer that seems to incorporate all I found and more in a clean library.
 
+The above server proving nice and useful - Participating in new work with Teensy here :: https://github.com/FrankBoesing/FlexiBoard
+Working with IDE 1.6.12 and ESP_Arduino Rev 2.3.
+Current Update here: https://github.com/FrankBoesing/FlexiBoard/blob/master/extras/ESP8266/README2.ArduinoESP.md
+
 Using Arduino on Teensy and ESP8266
 
 Work in Progress: GOING WELL - multiple ESP units tested with OTA and now Serial program over Teensy USB to Serial
