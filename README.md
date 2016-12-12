@@ -1,4 +1,7 @@
 FOUND THIS SERVER: https://github.com/nailbuster/myWebServer that seems to incorporate all I found and more in a clean library.
+>> to enable OTA upload in myWebServer uncomment this line :: 
+//#define ALLOW_IDEOTA             //define this to allow IDE OTA,  good while debugging....
+here :: https://github.com/nailbuster/myWebServer/blob/master/myWebServer.h#L48
 
 The above server proving nice and useful - Participating in new work with Teensy here :: https://github.com/FrankBoesing/FlexiBoard
 Working with IDE 1.6.12 and ESP_Arduino Rev 2.3.
